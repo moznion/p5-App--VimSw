@@ -13,6 +13,7 @@ use App::VimSw;
 
 use Test::More tests => 2;
 use Test::File;
+use Test::Exception;
 
 my $init_test_dir = catfile( $FindBin::Bin, 'resource', 'init_test' );
 my $vimsw_dir = catfile( $init_test_dir, '.vimsw' );
@@ -70,7 +71,7 @@ subtest 'Execute init with symlink' => sub {
     symlink_target_exists_ok( $vim_dir_on_home, $vim_dir );
     symlink_target_exists_ok( $vimrc_on_home, $vimrc );
 
-    is $app->init, undef, 'Already initialized';
+    dies_ok { $app->init() };
 };
 
 done_testing;

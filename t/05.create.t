@@ -12,6 +12,7 @@ use App::VimSw;
 
 use Test::More tests => 1;
 use Test::File;
+use Test::Exception;
 
 subtest 'Execute create' => sub {
     my $vimsw_dir = catfile( $FindBin::Bin, 'resource', 'create_test', '.vimsw' );
@@ -26,8 +27,8 @@ subtest 'Execute create' => sub {
     dir_exists_ok( catfile( $luke_dir, '.vim' ) );
     file_exists_ok( catfile( $luke_dir, '.vimrc' ) );
 
-    is $app->create, undef, 'Not specified the profile name';
-    is $app->create($profile), undef, 'Specify duplicated profile name';
+    dies_ok{ $app->create() };
+    dies_ok{ $app->create($profile) };
 };
 
 done_testing;

@@ -39,8 +39,7 @@ sub init {
     # Make root directory for VimSw
     my $status = mkpath( catfile( $self->{vimsw_dir}, $profile ) );
     unless ($status) {
-        print STDERR "Already initialized.\n";
-        return;
+        die "Already initialized.\n";
     }
 
     $self->_swap_symlink_for_entity( '.vim',   $profile );
@@ -80,18 +79,16 @@ sub list {
 sub switch {
     my ( $self, $profile ) = @_;
 
-    unless ($profile) { # Duplicated
-        print STDERR "Please specify the profile name\n";
-        print STDERR "Usage: \$ vimsw switch [profile name]\n";
-        return;
+    unless ($profile) {    # Duplicated
+        die "Please specify the profile name\n"
+          . "Usage: \$ vimsw switch [profile name]\n";
     }
 
     my $profiles = $self->_fetch_profiles_list( $self->{vimsw_dir} );
     my %profiles;
     $profiles{$_} = 1 for @$profiles;
     unless ( defined $profiles{$profile} ) {
-        print STDERR "'$profile' does not exist.\n";
-        return;
+        die "'$profile' does not exist.\n";
     }
 
     # Rewrite current profile state
@@ -114,22 +111,20 @@ sub switch {
 sub create {
     my ( $self, $profile ) = @_;
 
-    unless ($profile) { #Duplicated
-        print STDERR "Please specify the profile name\n";
-        print STDERR "Usage: \$ vimsw create [profile name]\n";
-        return;
+    unless ($profile) {    #Duplicated
+        die "Please specify the profile name\n"
+          . "Usage: \$ vimsw create [profile name]\n";
     }
 
     my $profile_dir = catfile( $self->{vimsw_dir}, $profile );
 
     my $status = mkpath( catfile($profile_dir) );
     unless ($status) {
-        print STDERR "'$profile' already exists.\n";
-        return;
+        die "'$profile' already exists.\n";
     }
 
     mkpath( catfile( $profile_dir, '.vim' ) );
-    open( my $fh, '>', catfile( $profile_dir, '.vimrc' ) ); # <= like `touch .vimrc`
+    open( my $fh, '>', catfile( $profile_dir, '.vimrc' ) );
     close($fh);
 
     print "Create the profile as '$profile'\n";
@@ -167,7 +162,7 @@ sub _swap_symlink_for_entity {
     }
 
     symlink $vimsw_side, $home_side
-      or die $!;  # Make symlink on home directory. It refers the moved entity.
+      or die $!;   # Make symlink on home directory. It refers the moved entity.
 }
 
 sub _update_symlink {

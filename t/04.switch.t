@@ -12,6 +12,7 @@ use App::VimSw;
 
 use Test::More tests => 1;
 use Test::File;
+use Test::Exception;
 
 sub fetch_current_profile {
     my ($file) = @_;
@@ -96,8 +97,8 @@ subtest 'Execute switch' => sub {
         'Does it point jackson .vimrc?'
     );
 
-    is $app->switch, undef, 'Not specified the profile name';
-    is $app->switch('Not-Exits-Name'), undef, 'Specified not exists profile name.';
+    dies_ok{ $app->switch() };
+    dies_ok{ $app->switch('Not-Exits-Name') };
 };
 
 done_testing;
