@@ -56,6 +56,7 @@ subtest 'Execute switch' => sub {
 
     my $profile_file      = catfile( $vimsw_dir, '.vimsw_profile' );
     my $orig_profile_file = catfile( $vimsw_dir, '.vimsw_profile.orig' );
+    rmtree($profile_file) if (-f $profile_file);
     File::Copy::copy( $orig_profile_file, $profile_file );
 
     my $default_profile = 'default';
