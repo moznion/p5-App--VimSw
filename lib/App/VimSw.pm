@@ -5,8 +5,8 @@ use warnings;
 use utf8;
 use Carp;
 use Cwd qw/abs_path/;
+use File::Copy::Recursive qw/rmove/;
 use File::Spec::Functions qw/catfile/;
-use File::Copy;
 use File::Path;
 
 our $VERSION = '0.0.1';
@@ -158,7 +158,7 @@ sub _swap_symlink_for_entity {
         unlink $home_side or die "$!\n";
     }
     else {
-        move $home_side, $vimsw_side or die "$!\n";   # Entity goes to ".vimsw".
+        rmove $home_side, $vimsw_side or die "$!\n";   # Entity goes to ".vimsw".
     }
 
     symlink $vimsw_side, $home_side

@@ -15,7 +15,7 @@ my $builder = Module::Build->new(
         'Test::Exception'           => '0.31',
         'Test::File'                => '1.34',
         'FindBin'                   => 0,
-        'File::Copy'                => 0,
+        'File::Copy::Recursive'     => 0,
         'File::Path'                => 0,
         'File::Spec::Functions'     => 0,
     },
@@ -29,7 +29,7 @@ my $builder = Module::Build->new(
     meta_merge => {
         'resources' => {
             'license'    => 'http://dev.perl.org/licenses/',
-            'repository' => 'git://github.com/moznion/App--VimSw.git',
+            'repository' => 'git://github.com/moznion/p5-App--VimSw.git',
         },
     },
     test_files => ( -d '.git' || $ENV{RELEASE_TESTING} ) ? 't/ xt/' : 't/',

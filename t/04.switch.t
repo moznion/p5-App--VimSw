@@ -6,7 +6,7 @@ use utf8;
 use FindBin;
 use File::Spec::Functions qw/catfile/;
 use File::Path;
-use File::Copy;
+use File::Copy::Recursive qw/fcopy/;
 
 use App::VimSw;
 
@@ -57,8 +57,10 @@ subtest 'Execute switch' => sub {
 
     my $profile_file      = catfile( $vimsw_dir, '.vimsw_profile' );
     my $orig_profile_file = catfile( $vimsw_dir, '.vimsw_profile.orig' );
+    $File::Copy::Recursive::KeepMode = 0;
     rmtree($profile_file) if (-f $profile_file);
-    File::Copy::copy( $orig_profile_file, $profile_file );
+    fcopy( $orig_profile_file, $profile_file );
+    $File::Copy::Recursive::KeepMode = 1;
 
     my $default_profile = 'default';
     initialize( $profile_file, catfile( $vimsw_dir, $default_profile ),
