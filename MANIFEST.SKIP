@@ -11,3 +11,8 @@ blib/
 ^MANIFEST\.SKIP
 App-VimSw-*
 ^README.pod$
+t/.gitignore
+t/resource/.gitignore
+t/resource/init_test/.gitignore
+t/resource/resource_init_test/.gitignore
+t/resource/switch_test/.gitignore
