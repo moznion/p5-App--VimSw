@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use utf8;
 use FindBin;
+use File::Basename qw/dirname/;
 use File::Path;
 use File::Spec::Functions qw/catfile/;
 
@@ -13,8 +14,8 @@ use Test::More tests => 1;
 use Test::File;
 
 subtest 'Execute create' => sub {
-    my $vimsw_dir = catfile( $FindBin::Bin, 'create_test', '.vimsw' );
-    rmtree($vimsw_dir) if -d $vimsw_dir;
+    my $vimsw_dir = catfile( $FindBin::Bin, 'resource', 'create_test', '.vimsw' );
+    rmtree(dirname($vimsw_dir)) if -d $vimsw_dir;
     mkpath $vimsw_dir or die "$!\n";
 
     my $profile = 'Luke';
