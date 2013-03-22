@@ -1,1 +1,0 @@
-../.vimsw/default/.vim
