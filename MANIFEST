@@ -25,6 +25,7 @@ t/resource/list_test/.vimsw/trash
 t/resource/list_test/.vimsw/user01/dummy
 t/resource/switch_test/.vimrc
 t/resource/switch_test/.vimsw/.vimsw_profile
+t/resource/switch_test/.vimsw/.vimsw_profile.orig
 t/resource/switch_test/.vimsw/default/.vim/dummy
 t/resource/switch_test/.vimsw/default/.vimrc
 t/resource/switch_test/.vimsw/jackson/.vim/dummy

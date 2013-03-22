@@ -6,6 +6,7 @@ use utf8;
 use FindBin;
 use File::Spec::Functions qw/catfile/;
 use File::Path;
+use File::Copy;
 
 use App::VimSw;
 
@@ -50,9 +51,12 @@ sub initialize {
 subtest 'Execute switch' => sub {
     $ENV{HOME} = catfile( $FindBin::Bin, 'resource', 'switch_test' );
     my $vimsw_dir    = catfile( $ENV{HOME}, '.vimsw' );
-    my $profile_file = catfile( $vimsw_dir, '.vimsw_profile' );
     my $home_vim     = catfile( $ENV{HOME}, '.vim' );
     my $home_vimrc   = catfile( $ENV{HOME}, '.vimrc' );
+
+    my $profile_file      = catfile( $vimsw_dir, '.vimsw_profile' );
+    my $orig_profile_file = catfile( $vimsw_dir, '.vimsw_profile.orig' );
+    File::Copy::copy( $orig_profile_file, $profile_file );
 
     my $default_profile = 'default';
     initialize( $profile_file, catfile( $vimsw_dir, $default_profile ),
